@@ -1,33 +1,104 @@
-.App {
-  text-align: center;
+.game {
+  width: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.card {
+  display: flex;
+  flex-direction: row;
+  margin-left: -2.5rem;
+  padding: 0.5rem;
+  width: 0.5in;
+  height: 1.0in;
+  border-radius: 0.625rem;
+  border: 0.0625rem solid rgb(0, 0, 0);
+  background: rgb( 255, 255, 255 );
+  z-index: 99;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.red {
+  color: rgb( 255,  0,  0);
+}
+
+.black {
+  color: rgb( 0, 0, 0);
+}
+
+.left-corner {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  font-size: 1.0rem;
+}
+
+.right-corner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  align-self: flex-end;
+  font-size: 1.0rem;
+}
+
+.invert {
+  transform: rotate(180deg);
+}
+
+.bjTable {
+  width: 100%;
+}
+
+.dealerRow {
+  margin-bottom: 75px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.playersRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.cardArea {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.buttons button {
+  margin-left: 0.625rem;
+  margin-right: 0.625rem;
+}
+
+.score {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.cards {
+  margin-top: 1.25rem;
+  margin-left: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
