@@ -141,14 +141,12 @@ let playerTotal = ( cards: any ): number => {
 }
 
 const Score = ( props: any ) => {
-  let score: number = playerTotal( props.cards );
-
   return (
     <div id={ 'score' + props.player } className="score">
       <span>
         score: 
       </span>
-      { score }
+      { props.score }
   </div>
 )
 }
@@ -221,27 +219,26 @@ const AceButton = ( props: any ) => {
 
 const PlayerArea = ( props: any ) => {
   const player: any = players[ props.player ];
+  let playerScore = playerTotal( player._hand );
   const [index, setIndex] = useState( deckIndex );
-  let score = player._score;
+  const [score, setScore] = useState( playerScore );
 
   const handleHitBtnClick = ( event: any ) => {
-    player._hand.push( deck[deckIndex] );
-    player._score = playerTotal( player._hand );
+    const newCard = deck[deckIndex];
+    const cardValue = playerTotal( [ newCard ] );
+    player._hand.push( newCard );
+    setScore( score + cardValue );
     setIndex( index + 1 );
     deckIndex = index;
   }
 
   const handleAceBtnClick = ( event: any ) => {
     const id: string = '#aceBtn' + props.player;
-    const scoreId: string = '#score' + props.player;
     const button: any = document.querySelector( id );
-    const scoreArea: any = document.querySelector( scoreId );
 
     player._hasAce = true;
-    score += 10;
+    setScore( score + 10 );
     player._score = score;
-    scoreArea.innerHTML = '<span>score: ' + score + '</span>';
-    console.log(player._score);
     button.disabled = player._hasAce;
   }
 
@@ -256,7 +253,7 @@ const PlayerArea = ( props: any ) => {
         <AceButton player={ props.player } aceBtnClick={ handleAceBtnClick } />
       </div>
       <div className="cardArea">
-        <Score player={ props.player } cards={ props.cards } />
+        <Score player={ props.player } score={ score } />
         <Hand player={ props.player } cards={ props.cards } />
       </div>
     </div>
@@ -323,7 +320,7 @@ const Table = ( props: any ) => {
 function App() {
   return (
     <div className="game">
-      <Table numberDecks={ parseInt( '6' ) } numberPlayers={ parseInt( '3' ) } />
+      <Table numberDecks={ parseInt( '6' ) } numberPlayers={ parseInt( '5' ) } />
     </div>
   )
 }
