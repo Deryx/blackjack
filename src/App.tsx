@@ -220,7 +220,6 @@ const AceButton = ( props: any ) => {
 const PlayerArea = ( props: any ) => {
   const player: any = players[ props.player ];
   let playerScore = playerTotal( player._hand );
-  const [index, setIndex] = useState( deckIndex );
   const [score, setScore] = useState( playerScore );
 
   const handleHitBtnClick = ( event: any ) => {
@@ -228,8 +227,7 @@ const PlayerArea = ( props: any ) => {
     const cardValue = playerTotal( [ newCard ] );
     player._hand.push( newCard );
     setScore( score + cardValue );
-    setIndex( index + 1 );
-    deckIndex = index;
+    deckIndex++;
   }
 
   const handleAceBtnClick = ( event: any ) => {
