@@ -1,28 +1,8 @@
 import React, { useState } from 'react';
+import Ranks from '../src/Ranks';
+import CardDeck from '../src/CardDeck';
 import './App.css';
 
-const suitsObj: any = {
-  Clubs : '\u2663',
-  Diamonds : '\u2666',
-  Hearts : '\u2665',
-  Spades : '\u2660'
-}
-
-const ranksObj: any = {
-  A : 1,
-  2 : 2,
-  3 : 3,
-  4 : 4,
-  5 : 5,
-  6 : 6,
-  7 : 7,
-  8 : 8,
-  9 : 9,
-  10 : 10,
-  J : 10,
-  Q : 10,
-  K : 10
-}
 
 let deckIndex: number = 0;
 let deck: any = [];
@@ -94,64 +74,29 @@ const shuffleDeck = ( cardDeck: any ): any => {
   return shuffledDeck;
 }
 
-const Card = ( props: any ) => {  
-  let cardClass: any = [ 'card' ];
-  cardClass.push( ( props.suit === suitsObj[ 'Diamonds' ] || props.suit === suitsObj[ 'Hearts' ] ) ? 'red' : 'black' );
-  cardClass = cardClass.join( ' ' );
-
-  return (
-    <div className={ cardClass }>
-      <div className="left-corner">
-        <div>{ props.rank }</div>
-        <div>{ props.suit }</div>
-      </div>
-      <div className="right-corner">
-        <div className="invert">{ props.suit }</div>
-        <div className="invert">{ props.rank }</div>
-      </div>
-    </div>
-  )
-}
-
-const CardDeck = ( numberDecks: number ): any => {
-  const suits: any = Object.values( suitsObj );
-  const ranks: any = Object.keys( ranksObj );
-  const deck: any = [];
-
-  for( let i = 0; i < numberDecks; i++ ) {
-    for( let suit of suits ) {
-      for( let rank of ranks ){
-        deck.push( <Card suit={ suit } rank={ rank } /> )
-      }
-    }
-  }
-
-  return deck
-}
-
 let playerTotal = ( cards: any ): number => {
   let total: number = 0;
 
   for( let i = 0; i < cards.length; i++ ) {
     let card: any = cards[ i ].props.rank;
-    total += ranksObj[ card ];
+    total += Ranks[ card ];
   }
 
   return total;
 }
 
-const Score = ( props: any ) => {
+const Score = ( props: any ): any => {
   return (
     <div id={ 'score' + props.player } className="score">
       <span>
         score: 
       </span>
       { props.score }
-  </div>
-)
+    </div>
+  )
 }
 
-const Hand = ( props: any ) => {
+const Hand = ( props: any ): any => {
   return (
     <div id={ 'hand' + props.player } className="cards">
       { props.cards }
@@ -159,7 +104,7 @@ const Hand = ( props: any ) => {
   )
 }
 
-const DealerArea = ( props: any ) => {
+const DealerArea = ( props: any ): any => {
   return (
     <div className="dealerRow">
       <div className="dealerArea">
@@ -169,7 +114,7 @@ const DealerArea = ( props: any ) => {
   )
 }
 
-const HitButton = ( props: any ) => {
+const HitButton = ( props: any ): any => {
   return (
     <div>
       <button id={ 'hitBtn' + props.player } onClick={ props.hitBtnClick } disabled={ stayStatus[ props.player ]}>
@@ -179,7 +124,7 @@ const HitButton = ( props: any ) => {
   )
 }
 
-const StayButton = ( props: any ) => {
+const StayButton = ( props: any ): any => {
   const handleStayBtnClick = ( event: any ) => {
     const id: string = '#hitBtn' + props.player;
     const button: any = document.querySelector( id );
@@ -195,7 +140,7 @@ const StayButton = ( props: any ) => {
   )
 }
 
-const AceButton = ( props: any ) => {
+const AceButton = ( props: any ): any => {
   const player: any = players[ props.player ];
   const hand = player._hand;
   let hasAce = player._hasAce;
@@ -217,9 +162,9 @@ const AceButton = ( props: any ) => {
 
 // }
 
-const PlayerArea = ( props: any ) => {
+const PlayerArea = ( props: any ): any => {
   const player: any = players[ props.player ];
-  let playerScore = playerTotal( player._hand );
+  const playerScore = playerTotal( player._hand );
   const [score, setScore] = useState( playerScore );
 
   const handleHitBtnClick = ( event: any ) => {
@@ -230,7 +175,7 @@ const PlayerArea = ( props: any ) => {
     deckIndex++;
   }
 
-  const handleAceBtnClick = ( event: any ) => {
+  const handleAceBtnClick = ( event: any ): any => {
     const id: string = '#aceBtn' + props.player;
     const button: any = document.querySelector( id );
 
@@ -258,7 +203,7 @@ const PlayerArea = ( props: any ) => {
   )
 }
 
-const Table = ( props: any ) => {
+const Table = ( props: any ): any => {
   const plyrAreas: any = [];
 
   deck = shuffleDeck( CardDeck( props.numberDecks ) );
@@ -303,7 +248,6 @@ const Table = ( props: any ) => {
   createHands();
   dealCards();
   createPlayersArea();
-  
   
   return (
     <div className="bjTable">
