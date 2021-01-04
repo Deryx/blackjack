@@ -108,7 +108,7 @@ const DealerArea = ( props: any ): any => {
   return (
     <div className="dealerRow">
       <div className="dealerArea">
-        <Hand cards={ props.cards } />
+        <Hand player="Dealer" cards={ props.cards } />
       </div>
     </div>
   )
