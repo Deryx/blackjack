@@ -102,3 +102,7 @@
   justify-content: center;
   width: 100%;
 }
+
+#handDealer div:first-child .left-corner, #scoreDealer {
+  visibility: hidden;
+}

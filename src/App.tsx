@@ -3,14 +3,18 @@ import Ranks from '../src/Ranks';
 import CardDeck from '../src/CardDeck';
 import './App.css';
 
-
 let deckIndex: number = 0;
 let deck: any = [];
+let numberStays: number = 0;
+let numPlayers: number = 0;
+let playersDone: boolean = false;
+
 const stayStatus: any = [];
 // const splitStatus: any = [];
 const players: any = [];
 const dealerHand: any = [];
 const playerHand: any = [];
+// const minDealerScore: number = 17;
 
 class Player {
   private _hand: any;
@@ -105,9 +109,13 @@ const Hand = ( props: any ): any => {
 }
 
 const DealerArea = ( props: any ): any => {
+  const dealer: any = dealerHand;
+  const dealerScore = playerTotal( dealer );
+
   return (
     <div className="dealerRow">
       <div className="dealerArea">
+        <Score player="Dealer" score={ dealerScore } />
         <Hand player="Dealer" cards={ props.cards } />
       </div>
     </div>
@@ -125,15 +133,9 @@ const HitButton = ( props: any ): any => {
 }
 
 const StayButton = ( props: any ): any => {
-  const handleStayBtnClick = ( event: any ) => {
-    const id: string = '#hitBtn' + props.player;
-    const button: any = document.querySelector( id );
-    button.disabled = true;
-  }
-
   return (
     <div>
-      <button id={ 'stayBtn' + props.player } onClick={ handleStayBtnClick }>
+      <button id={ 'stayBtn' + props.player } onClick={ props.stayBtnClick }>
         stay
       </button>
     </div>
@@ -166,6 +168,8 @@ const PlayerArea = ( props: any ): any => {
   const player: any = players[ props.player ];
   const playerScore = playerTotal( player._hand );
   const [score, setScore] = useState( playerScore );
+  const [scoreDealer, setScoreDealer] = useState( playerTotal( dealerHand ) );
+  console.log(scoreDealer);
 
   const handleHitBtnClick = ( event: any ) => {
     const newCard = deck[deckIndex];
@@ -175,7 +179,7 @@ const PlayerArea = ( props: any ): any => {
     deckIndex++;
   }
 
-  const handleAceBtnClick = ( event: any ): any => {
+  const handleAceBtnClick = ( event: any ): void => {
     const id: string = '#aceBtn' + props.player;
     const button: any = document.querySelector( id );
 
@@ -185,11 +189,31 @@ const PlayerArea = ( props: any ): any => {
     button.disabled = player._hasAce;
   }
 
+  const handleStayBtnClick = ( event: any ): void => {
+    const hitBtnId: string = '#hitBtn' + props.player;
+    const hitButton: any = document.querySelector( hitBtnId );
+    hitButton.disabled = true;
+    numberStays++;
+
+    if(numberStays === numPlayers){
+      const hiddenCard: any = document.querySelector('#handDealer div:first-child .left-corner');
+      const dealerScore: any = document.querySelector('#scoreDealer');
+      playersDone = true;
+      hiddenCard.style.visibility = 'visible';
+      dealerScore.style.visibility = 'visible';
+      let newCard = deck[deckIndex];
+      dealerHand.push( newCard );
+      console.log(newCard, dealerHand);
+      let cardValue = playerTotal( [newCard] );
+      setScoreDealer( scoreDealer + cardValue );
+    }
+  }
+
   return (
     <div id={ 'player' + props.player }>
       <div className="buttons">
         <HitButton player={ props.player } hitBtnClick={ handleHitBtnClick } />
-        <StayButton player={ props.player } />
+        <StayButton player={ props.player } stayBtnClick={ handleStayBtnClick } />
       </div>
       <br />
       <div className="buttons">
@@ -205,6 +229,7 @@ const PlayerArea = ( props: any ): any => {
 
 const Table = ( props: any ): any => {
   const plyrAreas: any = [];
+  numPlayers = parseInt( props.numberPlayers );
 
   deck = shuffleDeck( CardDeck( props.numberDecks ) );
 
