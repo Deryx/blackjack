@@ -1,49 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HitButton from '../src/HitButton';
 import StayButton from '../src/StayButton';
 import AceButton from '../src/AceButton';
+import Player from '../src/Player';
 import PlayerScore from '../src/PlayerScore';
 import Hand from '../src/Hand';
-import playerTotal from '../src/playerTotal';
+import handTotal from '../src/handTotal';
+
+const player: Player = new Player();
 
 const PlayerPanel = ( props: any ): any => {
+  const [score, setScore] = useState( handTotal( player.hand ) );
 
-    const handleHitBtnClick = ( event: any ) => {
-        const newCard = deck[deckIndex];
-        const cardValue = playerTotal( [ newCard ] );
-        player._hand.push( newCard );
+    const handleHitBtnClick = ( event: any, card: any ): any => {
+        const cardValue = handTotal( [ card ] );
+        player.hand.push( card );
         setScore( score + cardValue );
-        deckIndex++;
       }
     
       const handleAceBtnClick = ( event: any ): void => {
         const id: string = '#aceBtn' + props.player;
         const button: any = document.querySelector( id );
     
-        player._hasAce = true;
+        player.hasAce = true;
         setScore( score + 10 );
-        player._score = score;
-        button.disabled = player._hasAce;
+        player.score = score;
+        button.disabled = player.hasAce;
       }
     
       const handleStayBtnClick = ( event: any ): void => {
         const hitBtnId: string = '#hitBtn' + props.player;
         const hitButton: any = document.querySelector( hitBtnId );
         hitButton.disabled = true;
-        numberStays++;
+        // numberStays++;
     
-        if(numberStays === numPlayers){
-          const hiddenCard: any = document.querySelector('#handDealer div:first-child .left-corner');
-          const dealerScore: any = document.querySelector('#scoreDealer');
-          playersDone = true;
-          hiddenCard.style.visibility = 'visible';
-          dealerScore.style.visibility = 'visible';
-          let newCard = deck[deckIndex];
-          dealerHand.push( newCard );
-          console.log(newCard, dealerHand);
-          let cardValue = playerTotal( [newCard] );
-          setScoreDealer( scoreDealer + cardValue );
-        }
+        // if(numberStays === numPlayers){
+        //   const hiddenCard: any = document.querySelector('#handDealer div:first-child .left-corner');
+        //   const dealerScore: any = document.querySelector('#scoreDealer');
+        //   playersDone = true;
+        //   hiddenCard.style.visibility = 'visible';
+        //   dealerScore.style.visibility = 'visible';
+        //   let newCard = deck[deckIndex];
+        //   dealerHand.push( newCard );
+        //   console.log(newCard, dealerHand);
+        //   let cardValue = handTotal( [newCard] );
+        //   setScoreDealer( scoreDealer + cardValue );
+        // }
       }
         return (
         <div id={ 'player' + props.player }>

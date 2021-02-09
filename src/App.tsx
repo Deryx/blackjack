@@ -1,61 +1,81 @@
 import React, { useState } from 'react';
-import Ranks from '../src/Ranks';
-import CardDeck from '../src/CardDeck';
-import HitButton from '../src/HitButton';
-import AceButton from '../src/AceButton';
-import StayButton from '../src/StayButton';
-import Hand from '../src/Hand';
+import Table from '../src/Table';
+import Player from '../src/Player';
+import Dealer from '../src/Dealer';
 import './App.css';
+import PlayerPanel from './PlayerPanel';
 
-let numberStays: number = 0;
-let numPlayers: number = 0;
-let playersDone: boolean = false;
+const players: Player[] = [];
+const dealer: Dealer;
 
-const stayStatus: any = [];
-// const splitStatus: any = [];
-// const minDealerScore: number = 17;
+let numDecks: number = 8;
+let numPlayers: number = 5;
 
-
-const DealerArea = ( props: any ): any => {
-  const dealer: any = dealerHand;
-  const dealerScore = playerTotal( dealer );
-
+let deck: any = [];
+let deckIndex: number = 0;
+let index = 0;
+  
+const generateRandomNumber = ( maxNumber: number ): number => {
+    return Math.floor( Math.random() * maxNumber );
 }
 
-// const SplitButton = ( props: any ) => {
-
-// }
-
-const PlayerArea = ( props: any ): any => {
-  const player: any = players[ props.player ];
-  const playerScore = playerTotal( player._hand );
-  const [score, setScore] = useState( playerScore );
-  const [scoreDealer, setScoreDealer] = useState( playerTotal( dealerHand ) );
-
-
-  return (
-    <div id={ 'player' + props.player }>
-      <div className="buttons">
-        <HitButton player={ props.player } hitBtnClick={ handleHitBtnClick } />
-        <StayButton player={ props.player } stayBtnClick={ handleStayBtnClick } />
-      </div>
-      <br />
-      <div className="buttons">
-        <AceButton player={ props.player } aceBtnClick={ handleAceBtnClick } />
-      </div>
-      <div className="cardArea">
-        <Score player={ props.player } score={ score } />
-        <Hand player={ props.player } cards={ props.cards } />
-      </div>
-    </div>
-  )
+const generateRandomNumberArray = ( arrayLength: number, maxNumber: number, numberArray: number[] ): number[] => {
+    if( index < arrayLength ) {
+      let randomNumber: number = generateRandomNumber(maxNumber);
+      if (numberArray.indexOf(randomNumber) === -1) {
+        numberArray.push(randomNumber);
+        index++;
+      }
+  
+      return generateRandomNumberArray(arrayLength, maxNumber, numberArray);
+    } else {
+      index = 0;
+      return numberArray;
+    }
 }
 
+const shuffleDeck = ( cardDeck: any ): any => {
+    const deckLength: number = cardDeck.length;
+    let shuffledArray: number[] = [];
+    const shuffledDeck: any = [];    
+  
+    generateRandomNumberArray(deckLength, deckLength, shuffledArray);
+  
+    for ( let i = 0; i < deckLength; i++) {
+      shuffledDeck.push( cardDeck[shuffledArray[ i ]] );
+    }
+  
+    return shuffledDeck;
+}
 
-function App() {
+const createHands = ( numPlayers: number ): void => {
+    for( let i = 0; i < numPlayers; i++ ) {
+        players[i].hand.push( [] );
+    }
+}
+
+const createPlayers = ( numPlayers: number ): void => {
+    for( let i = 0; i < numPlayers; i++ ) {
+      players.push( <PlayerPanel player={ i } cards={ players[i].hand } /> );
+    }
+}
+
+const dealCards = (): void => {
+  for( let i = 0; i < 2; i++ ) {
+      for( let j = 0; j < numPlayers; j++ ) {
+        // if(deck[deckIndex].props.rank === 'A') players[j]._hasAce = true;
+        players[j].hand.push( deck[deckIndex] );
+        deckIndex++;
+      }
+      dealer.hand.push( deck[deckIndex++] );
+  }
+}
+
+function App(){
+
   return (
     <div className="game">
-      <Table numberDecks={ parseInt( '6' ) } numberPlayers={ parseInt( '5' ) } />
+      <Table dealer={ dealer } players={ players } />
     </div>
   )
 }

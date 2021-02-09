@@ -1,6 +1,6 @@
 import Ranks from '../src/Ranks';
 
-const playerTotal = ( cards: any ): number => {
+const handTotal = ( cards: any ): number => {
     let total: number = 0;
   
     for( let i = 0; i < cards.length; i++ ) {
@@ -11,4 +11,4 @@ const playerTotal = ( cards: any ): number => {
     return total;
 }
   
-export default playerTotal;
+export default handTotal;
