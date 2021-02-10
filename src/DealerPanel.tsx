@@ -7,7 +7,7 @@ import handTotal from '../src/handTotal';
 const dealer: Dealer = new Dealer();
 
 const DealerPanel = ( props: any ): any => {
-  const [score, setScore] = useState( handTotal( dealer.hand ) );
+  const [score, setScore] = useState( handTotal( props.cards ) );
 
   return (
       <div className="dealerRow">

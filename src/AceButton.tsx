@@ -1,13 +1,11 @@
 import React from 'react';
 
 const AceButton = ( props: any ): any => {
-    const player: any = players[ props.player ];
-    const hand = player._hand;
-    let hasAce = player._hasAce;
+    let hasAce = false;
   
-    for( let i = 0; i < hand.length; i++) {
-      if(hand[i].props.rank === 'A') hasAce = true;
-    }
+    // for( let i = 0; i < hand.length; i++) {
+    //   if(hand[i].props.rank === 'A') hasAce = true;
+    // }
   
     return (
       <div>
