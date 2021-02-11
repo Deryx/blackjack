@@ -59,7 +59,7 @@ function App(){
   const dealCards = (): void => {
     for( let i = 0; i < 2; i++ ) {
         for( let j = 0; j < numPlayers; j++ ) {
-          if(deck[deckIndex].props.rank === 'A') players[j].hasAce = true;
+          if( deck[deckIndex].props.rank === 'A' ) players[j].hasAce = true;
           players[j].hand.push( deck[deckIndex] );
           deckIndex++;
         }
@@ -78,7 +78,7 @@ function App(){
 
   dealerPanel.push( <DealerPanel cards={ dealer.hand } /> );
   for(let i = 0; i < numPlayers; i++){
-    playerPanels.push( <PlayerPanel player={ i } cards={ players[i].hand } />);
+    playerPanels.push( <PlayerPanel player={ i } data={ players[i] } />);
   }
 
   return (

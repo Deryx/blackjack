@@ -7,14 +7,11 @@ import Hand from '../src/Hand';
 import handTotal from '../src/handTotal';
 
 const PlayerPanel = ( props: any ): any => {
-  const [score, setScore] = useState( handTotal( props.cards ) );
-  const aceButtons: any = document.querySelectorAll( "button[id^='aceBtn']" );
-  console.log(aceButtons);
-  
-  const handleHitBtnClick = ( event: any, card: any ): any => {
-    const cardValue = handTotal( [ card ] );
-    props.cards.push( card );
-    setScore( score + cardValue );
+  const [hand, setHand] = useState( props.data.hand );
+  const [score, setScore] = useState( handTotal( hand ) );
+
+  const handleHitBtnClick = ( event: any ): any => {
+    setScore( handTotal( hand ) );
   }
 
   const handleAceBtnClick = ( event: any ): void => {
@@ -55,11 +52,11 @@ const PlayerPanel = ( props: any ): any => {
       </div>
       <br />
       <div className="buttons">
-        <AceButton player={ props.player } aceBtnClick={ handleAceBtnClick } />
+        <AceButton player={ props.player } aceBtnClick={ handleAceBtnClick } aceStatus={ props.data.hasAce } />
       </div>
       <div className="cardArea">
         <PlayerScore player={ props.player } score={ score } />
-        <Hand player={ props.player } cards={ props.cards } />
+        <Hand player={ props.player } cards={ props.data.hand } />
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Table = ( props: any ): any => {    
+const Table = ( props: any ): any => {
   return (
     <div className="bjTable">
       { props.dealer }
