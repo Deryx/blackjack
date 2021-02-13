@@ -55,8 +55,10 @@ const PlayerPanel = ( props: any ): any => {
 
     if (numStays === numHitButtons) {
       const hiddenCard: any = document.querySelector('#handDealer div:first-child .left-corner');
+      const hiddenCards: any = document.querySelector('#handDealer div.card:nth-child(1n+3)');
       const dealerScore: any = document.querySelector('#scoreDealer');
       hiddenCard.style.visibility = 'visible';
+      if(hiddenCards) hiddenCards.style.visibility = 'visible';
       dealerScore.style.visibility = 'visible';
 
       playersContext.allDone = true;

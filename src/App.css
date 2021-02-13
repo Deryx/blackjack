@@ -63,6 +63,13 @@
   justify-content: center;
 }
 
+.dealerArea {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .cardArea {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
@@ -104,5 +111,9 @@
 }
 
 #handDealer div:first-child .left-corner, #scoreDealer {
+  visibility: hidden;
+}
+
+#handDealer div.card:nth-child(1n+3) {
   visibility: hidden;
 }

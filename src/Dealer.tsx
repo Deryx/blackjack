@@ -14,15 +14,15 @@ class Dealer {
     }
     
     set hand(hand: any) {
-    this._hand = hand;
+        this._hand = hand;
     }
 
     get score(): number {
-    return this._score;
+        return this._score;
     }
 
     set score(score: number) {
-    this._score = score;
+        this._score = score;
     }
    
     get hasAce(): boolean {

@@ -1,21 +1,21 @@
 import React, { useContext } from 'react';
 import DeckContext from './DeckContext';
-import PlayersContext from './PlayersContext';
 import Player from '../src/Player';
 import Dealer from '../src/Dealer';
 import PlayerPanel from './PlayerPanel';
 import DealerPanel from './DealerPanel'
 import cardDeck from '../src/CardDeck';
 import Table from '../src/Table';
+import handTotal from '../src/handTotal';
 import './App.css';
 
 const App = () => {
   const deckContext = useContext( DeckContext );
-  const playersContext = useContext( PlayersContext );
   const numPlayers: number = 5;
   const numberDecks: number = 8;
   const players: any = [];
   const dealer: any = new Dealer();
+  const minDealerScore: number = 17;
 
   let arrayIndex: number = 0;
     
@@ -69,7 +69,18 @@ const App = () => {
           players[j].hand.push( deck[index] );
           index++;
         }
+        if( deck[index].props.rank === 'A' ) dealer.hasAce = true;
         dealer.hand.push( deck[index++] );
+    }
+    let dealerScore: number = handTotal( dealer.hand );
+    dealer.score = dealer.hasAce ? dealerScore + 10 : dealerScore;
+    console.log(dealer.score);
+    while( dealer.score < minDealerScore ){
+      index++;
+      let card: any = deck[index];
+      let cardValue: number = handTotal( [card] );
+      dealer.hand.push( card );
+      dealer.score += cardValue;
     }
     deckContext.index = index;
   }
@@ -80,7 +91,7 @@ const App = () => {
   createPlayers( numPlayers );
   dealCards();
 
-  dealerPanel.push( <DealerPanel cards={ dealer.hand } deck={ deck } /> );
+  dealerPanel.push( <DealerPanel data={ dealer } deck={ deck } /> );
   for(let i = 0; i < numPlayers; i++){
     playerPanels.push( <PlayerPanel player={ i } data={ players[i] } deck={ deck } />);
   }
