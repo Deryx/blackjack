@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import DeckContext from './DeckContext';
 import PlayersContext from './PlayersContext';
-import HitButton from '../src/HitButton';
-import StayButton from '../src/StayButton';
-import AceButton from '../src/AceButton';
-import PlayerScore from '../src/PlayerScore';
-import Hand from '../src/Hand';
-import handTotal from '../src/handTotal';
+import HitButton from './HitButton';
+import StayButton from './StayButton';
+import AceButton from './AceButton';
+import PlayerScore from './PlayerScore';
+import Hand from './Hand';
+import handTotal from './handTotal';
 
 const PlayerPanel = ( props: any ): any => {
   const deckContext = useContext( DeckContext );

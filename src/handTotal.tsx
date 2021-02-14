@@ -1,4 +1,4 @@
-import Ranks from '../src/Ranks';
+import Ranks from './Ranks';
 
 const handTotal = ( cards: any ): number => {
     let total: number = 0;

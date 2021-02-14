@@ -1,6 +1,6 @@
 import React from 'react';
-import PlayerScore from '../src/PlayerScore';
-import Hand from '../src/Hand';
+import PlayerScore from './PlayerScore';
+import Hand from './Hand';
 
 const DealerPanel = ( props: any ): any => {
   return (

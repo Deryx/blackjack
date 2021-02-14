@@ -1,7 +1,7 @@
 import React from 'react';
-import Suits from '../src/Suits';
-import Ranks from '../src/Ranks';
-import Card from '../src/Card';
+import Suits from './Suits';
+import Ranks from './Ranks';
+import Card from './Card';
 
 const deck: any = [];
 

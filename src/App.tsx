@@ -74,7 +74,6 @@ const App = () => {
     }
     let dealerScore: number = handTotal( dealer.hand );
     dealer.score = dealer.hasAce ? dealerScore + 10 : dealerScore;
-    console.log(dealer.score);
     while( dealer.score < minDealerScore ){
       index++;
       let card: any = deck[index];

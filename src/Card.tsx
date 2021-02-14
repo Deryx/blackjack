@@ -1,5 +1,5 @@
 import React from 'react';
-import Suits from '../src/Suits';
+import Suits from './Suits';
 
 const Card = ( props: any ): any => {  
     let cardClass: any = [ 'card' ];
