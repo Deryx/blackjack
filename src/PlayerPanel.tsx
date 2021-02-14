@@ -67,15 +67,15 @@ const PlayerPanel = ( props: any ): any => {
 
   return (
     <div id={ 'player' + props.player }>
-      <div className="buttons">
+      <div id={ 'player' + props.player + 'Buttons' } className="buttons">
         <HitButton player={ props.player } hitBtnClick={ handleHitBtnClick } />
         <StayButton player={ props.player } stayBtnClick={ handleStayBtnClick } />
       </div>
       <br />
-      <div className="buttons">
+      <div id={ 'player' + props.player + 'AceButton' } className="buttons">
         <AceButton player={ props.player } aceBtnClick={ handleAceBtnClick } aceStatus={ props.data.hasAce } />
       </div>
-      <div className="cardArea">
+      <div id={ 'player' + props.player + 'Cards'} className="cardArea">
         <PlayerScore player={ props.player } score={ score } />
         <Hand player={ props.player } cards={ props.data.hand } />
       </div>

@@ -2,9 +2,9 @@ import React from 'react';
 
 const Table = ( props: any ): any => {
   return (
-    <div className="bjTable">
+    <div id="dealerSection" className="bjTable">
       { props.dealer }
-      <div className="playersRow">
+      <div id="playerSection" className="playersRow">
         { props.players }
       </div>
     </div>
