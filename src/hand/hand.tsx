@@ -1,4 +1,5 @@
 import React from 'react';
+import './hand.scss';
 
 const Hand = ( props: any ): any => {
     return (

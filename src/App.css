@@ -2,6 +2,14 @@
   width: 100%;
 }
 
+.newGameButton {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
 .card {
   display: flex;
   flex-direction: row;
@@ -44,12 +52,12 @@
   transform: rotate(180deg);
 }
 
-.bjTable {
+.bj-table {
   width: 100%;
 }
 
 .dealerRow {
-  margin-bottom: 75px;
+  margin-bottom: 60px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -70,13 +78,28 @@
   justify-content: center;
 }
 
+.playerArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .cardArea {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   margin-bottom: 1.75rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
+}
+
+.bankArea {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .buttons {
@@ -98,6 +121,13 @@
   flex-direction: row;
   justify-content: center;
   margin-top: 1.25rem;
+  width: 100%;
+}
+
+.bank {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
 }
 

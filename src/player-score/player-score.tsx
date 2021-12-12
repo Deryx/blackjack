@@ -1,4 +1,5 @@
 import React from 'react';
+import './player-score.scss';
 
 const PlayerScore = ( props:any ): any => {
     return (
@@ -6,7 +7,9 @@ const PlayerScore = ( props:any ): any => {
           <span>
             score: 
           </span>
-          { props.score }
+          <span>
+            { props.score }
+          </span>
         </div>
     )
 }

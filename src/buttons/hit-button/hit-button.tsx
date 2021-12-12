@@ -1,4 +1,5 @@
 import React from 'react';
+import './hit-button.scss';
 
 const HitButton = ( props: any ): any => {
     return (

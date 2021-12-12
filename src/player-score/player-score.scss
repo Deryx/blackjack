@@ -1,0 +1,27 @@
+.dealerRow {
+    .score {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 1.25rem;
+        width: 100%;
+    }
+
+    #handDealer div:first-child .left-corner, #scoreDealer {
+        visibility: hidden;
+    }
+      
+    #handDealer div.card:nth-child(1n+3) {
+        visibility: hidden;
+    }
+}
+
+.cardArea {
+    .score {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 1.25rem;
+        width: 100%;
+    }
+}

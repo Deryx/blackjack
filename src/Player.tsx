@@ -1,12 +1,14 @@
 class Player {
     private _hand: any;
     private _score: number;
+    private _bank: number;
     private _hasAce: boolean;
     private _hasStayed: boolean;
   
     constructor() {
       this._hand = [];
       this._score = 0;
+      this._bank = 500;
       this._hasAce = false;
       this._hasStayed = false;
     }
@@ -25,6 +27,14 @@ class Player {
   
     set score(score: number) {
       this._score = score;
+    }
+  
+    get bank(): number {
+      return this._bank;
+    }
+  
+    set bank(bank: number) {
+      this._bank = bank;
     }
   
     get hasAce(): boolean {

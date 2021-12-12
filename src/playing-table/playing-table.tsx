@@ -1,9 +1,13 @@
 import React from 'react';
+import './playing-table.scss'
 
 const Table = ( props: any ): any => {
+
   return (
-    <div id="dealerSection" className="bjTable">
-      { props.dealer }
+    <div>
+      <div id="dealerSection" className="bj-table">
+        { props.dealer }
+      </div>
       <div id="playerSection" className="playersRow">
         { props.players }
       </div>

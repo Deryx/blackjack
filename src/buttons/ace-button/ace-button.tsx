@@ -1,4 +1,5 @@
 import React from 'react';
+import './ace-button.scss';
 
 const AceButton = ( props: any ): any => {  
     return (

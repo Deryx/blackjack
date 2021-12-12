@@ -1,23 +1,23 @@
-import React, { useContext } from 'react';
-import DeckContext from './DeckContext';
-import Player from '../src/Player';
-import Dealer from '../src/Dealer';
-import PlayerPanel from './PlayerPanel';
-import DealerPanel from './DealerPanel'
-import cardDeck from '../src/CardDeck';
-import Table from '../src/Table';
-import handTotal from '../src/handTotal';
-import './App.css';
+import React from 'react';
+import Player from './Player';
+import Dealer from './Dealer';
+import PlayerPanel from './panels/player/player-panel';
+import DealerPanel from './panels/dealer/dealer-panel'
+import cardDeck from './card-deck/card-deck';
+import Table from './playing-table/playing-table';
+import handTotal from './handTotal';
 
 const App = () => {
-  const deckContext = useContext( DeckContext );
+  const dealer: Dealer = new Dealer();
+  const players: Player[] = [];
   const numPlayers: number = 5;
   const numberDecks: number = 8;
-  const players: any = [];
-  const dealer: any = new Dealer();
-  const minDealerScore: number = 17;
+  const dealerMinimum: number = 17;
+  const dealerPanel: any = [];
+  const playerPanels: any = [];
 
   let arrayIndex: number = 0;
+  var index: number = 0;
     
   const generateRandomNumber = ( maxNumber: number ): number => {
       return Math.floor( Math.random() * maxNumber );
@@ -49,55 +49,57 @@ const App = () => {
   
     return shuffledDeck;
   }
-  
-  let deck: any = cardDeck( numberDecks );
-  deck = shuffleDeck( deck );
 
-  const createPlayers = ( numPlayers: number ): void => {
+  const createPlayerPanels = (): void => {
+    dealerPanel.push( <DealerPanel data={ dealer } deck={ deck } /> );
+    for(let i = 0; i < numPlayers; i++){
+      playerPanels.push( <PlayerPanel player={ i } data={ players[i] } deck={ deck } />);
+    }
+  }
+
+  const createPlayers = (): void => {
     for( let i = 0; i < numPlayers; i++ ) {
-      let player: any = new Player();
+      let player: Player = new Player();
       players.push( player );
     }
   }
-  
-  const dealCards = (): void => {
-    let index: number = 0;
+
+  const dealCards = ( players: any, dealer: any, deck: any, index: number ): void => {
+    const numPlayers: number = players.length;
 
     for( let i = 0; i < 2; i++ ) {
         for( let j = 0; j < numPlayers; j++ ) {
-          if( deck[index].props.rank === 'A' ) players[j].hasAce = true;
-          players[j].hand.push( deck[index] );
-          index++;
+          var currentCard = deck.shift();
+          if( currentCard.props.rank === 'A' ) players[j].hasAce = true;
+          players[j].hand.push( currentCard );
         }
-        if( deck[index].props.rank === 'A' ) dealer.hasAce = true;
-        dealer.hand.push( deck[index++] );
+        currentCard = deck.shift();
+        if( currentCard.props.rank === 'A' ) dealer.hasAce = true;
+        dealer.hand.push( currentCard );
     }
-    let dealerScore: number = handTotal( dealer.hand );
-    dealer.score = dealer.hasAce ? dealerScore + 10 : dealerScore;
-    while( dealer.score < minDealerScore ){
-      index++;
-      let card: any = deck[index];
-      let cardValue: number = handTotal( [card] );
-      dealer.hand.push( card );
-      dealer.score += cardValue;
+    let dealerScore = handTotal( dealer.hand );
+    if ( dealer.hasAce ) dealerScore += 10;
+    while ( dealerScore < dealerMinimum ) {
+      const newCard = deck.shift();
+      dealer.hand.push( newCard );
+      dealerScore += handTotal( [ newCard ] );
     }
-    deckContext.index = index;
   }
 
-  const dealerPanel: any = [];
-  const playerPanels: any = [];
+  let deck: any = cardDeck( numberDecks );
+  deck = shuffleDeck( deck );
 
-  createPlayers( numPlayers );
-  dealCards();
-
-  dealerPanel.push( <DealerPanel data={ dealer } deck={ deck } /> );
-  for(let i = 0; i < numPlayers; i++){
-    playerPanels.push( <PlayerPanel player={ i } data={ players[i] } deck={ deck } />);
+  const startGame = () => {
+    createPlayers();
+    dealCards( players, dealer, deck, index );
+    createPlayerPanels();
   }
+
+  startGame();
 
   return (
     <div className="game">
-      <Table dealer={ dealerPanel } players={ playerPanels } cardDeck={ deck } />
+      <Table dealer={ dealerPanel } players={ playerPanels } />
     </div>
   )
 }

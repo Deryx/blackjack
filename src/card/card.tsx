@@ -1,5 +1,6 @@
 import React from 'react';
-import Suits from './Suits';
+import Suits from '../suits';
+import './card.scss';
 
 const Card = ( props: any ): any => {  
     let cardClass: any = [ 'card' ];
