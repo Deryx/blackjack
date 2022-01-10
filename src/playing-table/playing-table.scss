@@ -1,20 +1,75 @@
-
 .bj-table {
-    width: 100%;
-  }
-  
-  .dealerRow {
-    margin-bottom: 60px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .playersRow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  #dealerSection {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    .dealerArea {
+        width: 100%;
+        margin-bottom: 3.0rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .dealerRow {
+          margin-bottom: 60px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          .score {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 1.25rem;
+            width: 100%;
+        }
+      }  
+    }
   }
-  
+  #newGameBtn {
+    margin-bottom: 2.5rem;
+  }
+  #playersSection {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    .playersRow {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      .playerArea {
+          margin-left: 1.5rem;
+          margin-right: 1.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          .gameStatus {
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              margin-top: 1.25rem;
+              font-weight: bold;
+          }         
+          .cardArea {
+              width: 100%;
+              margin-bottom: 1.25rem;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+          }
+          .bankArea {
+              width: 100%;
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+          }
+      }
+    }
+  }
+}

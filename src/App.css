@@ -10,7 +10,7 @@
   margin-bottom: 60px;
 }
 
-.card {
+/* .card {
   display: flex;
   flex-direction: row;
   margin-left: -2.5rem;
@@ -146,4 +146,4 @@
 
 #handDealer div.card:nth-child(1n+3) {
   visibility: hidden;
-}
+} */
