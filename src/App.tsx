@@ -58,9 +58,14 @@ const dealCards = (): void => {
         playerHands[j] = [...playerHands[j], deck.shift() ];
       }
       dealerCards = [...dealerCards, deck.shift()];
-    }
+  }
 
-    while( handTotal( dealerCards ) < dealerMinimum ) dealerCards = [...dealerCards, deck.shift()];
+  let dealerScore: number = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+  while( dealerScore < dealerMinimum ) {
+    dealerCards = [...dealerCards, deck.shift()];
+
+    dealerScore = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+  }
 
   dealrHand = [...dealerCards];
   playrHands = [...playerHands];  

@@ -66,7 +66,8 @@ const Table = ( props: any ): any => {
     let playerHand: any = playerHands[playerId];
 
     playerHand = [...playerHand, card];
-    if( handTotal( playerHand ) > bestScore ) {
+    let playerScore: number = handTotal( playerHand );
+    if( playerScore > bestScore ) {
       incrementStays();
       stayButton.disabled = true;
       hitButton.disabled = true;
@@ -91,10 +92,9 @@ const Table = ( props: any ): any => {
     const playerGameStatus: any = document.querySelector( '#player' + player + 'GameStatus' );
 
     if( playerGameStatus.innerText === ''){
-      if( playerScore <= bestScore && dealrScore > bestScore ) playerGameStatus.innerText = "You win!";
-      if( playerScore <= bestScore && playerScore > dealrScore ) playerGameStatus.innerText = "You win!";
+      if( playerScore <= bestScore && ( dealrScore > bestScore || playerScore > dealrScore ) ) playerGameStatus.innerText = "You win!";
       if( playerScore > bestScore ) playerGameStatus.innerText = "You lose!";
-      if( playerScore <= bestScore && playerScore < dealrScore ) playerGameStatus.innerText = "You lose!";
+      if( playerScore <= bestScore && dealrScore <= bestScore && playerScore < dealrScore ) playerGameStatus.innerText = "You lose!";
       if( ( playerScore <= bestScore && dealrScore <= bestScore ) && playerScore === dealrScore ) playerGameStatus.innerText = "You tie!";
     }
   }
@@ -151,7 +151,12 @@ const Table = ( props: any ): any => {
         dealerCards = [...dealerCards, deck.shift()];
     }
   
-    while( handTotal( dealerCards ) < dealerMinimum ) dealerCards = [...dealerCards, deck.shift()];
+    let dealerScore: number = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+    while( dealerScore < dealerMinimum ) {
+      dealerCards = [...dealerCards, deck.shift()];
+
+      dealerScore = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+    }
 
     setHands({
       dealerHand: dealerCards,
