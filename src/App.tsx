@@ -46,8 +46,8 @@ let deck: any = cardDeck( numberDecks );
 deck = shuffleDeck( deck );
 
 const dealCards = (): void => {
-  const dealerCards: any = [];
-  const playerHands: any = [];
+  let dealerCards: any = [];
+  let playerHands: any = [];
 
   for( let i = 0; i < numPlayers; i++ ) {
     playerHands.push( [] );
@@ -57,10 +57,10 @@ const dealCards = (): void => {
       for( let j = 0; j < numPlayers; j++ ) {
         playerHands[j] = [...playerHands[j], deck.shift() ];
       }
-      dealerCards.push( deck.shift() );
-  }
+      dealerCards = [...dealerCards, deck.shift()];
+    }
 
-  while( handTotal( dealerCards ) < dealerMinimum ) dealerCards.push( deck.shift() );
+    while( handTotal( dealerCards ) < 17 ) dealerCards = [...dealerCards, deck.shift()];
 
   dealrHand = [...dealerCards];
   playrHands = [...playerHands];  
