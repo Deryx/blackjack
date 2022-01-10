@@ -9,6 +9,8 @@ import './playing-table.scss';
 
 const Table = ( props: any ): any => {
   const deck: any = props.deck;
+  const dealerMinimum: number = 17;
+  const bestScore: number = 21;
 
   let playerControls: any;
   
@@ -64,7 +66,7 @@ const Table = ( props: any ): any => {
     let playerHand: any = playerHands[playerId];
 
     playerHand = [...playerHand, card];
-    if( handTotal( playerHand ) > 21 ) {
+    if( handTotal( playerHand ) > bestScore ) {
       incrementStays();
       stayButton.disabled = true;
       hitButton.disabled = true;
@@ -89,11 +91,11 @@ const Table = ( props: any ): any => {
     const playerGameStatus: any = document.querySelector( '#player' + player + 'GameStatus' );
 
     if( playerGameStatus.innerText === ''){
-      if( playerScore <= 21 && dealrScore > 21 ) playerGameStatus.innerText = "You win!";
-      if( playerScore <= 21 && playerScore > dealrScore ) playerGameStatus.innerText = "You win!";
-      if( playerScore > 21 ) playerGameStatus.innerText = "You lose!";
-      if( playerScore <= 21 && playerScore < dealrScore ) playerGameStatus.innerText = "You lose!";
-      if( ( playerScore <= 21 && dealrScore <= 21) && playerScore === dealrScore ) playerGameStatus.innerText = "You tie!";
+      if( playerScore <= bestScore && dealrScore > bestScore ) playerGameStatus.innerText = "You win!";
+      if( playerScore <= bestScore && playerScore > dealrScore ) playerGameStatus.innerText = "You win!";
+      if( playerScore > bestScore ) playerGameStatus.innerText = "You lose!";
+      if( playerScore <= bestScore && playerScore < dealrScore ) playerGameStatus.innerText = "You lose!";
+      if( ( playerScore <= bestScore && dealrScore <= bestScore ) && playerScore === dealrScore ) playerGameStatus.innerText = "You tie!";
     }
   }
 
@@ -149,7 +151,7 @@ const Table = ( props: any ): any => {
         dealerCards = [...dealerCards, deck.shift()];
     }
   
-    while( handTotal( dealerCards ) < 17 ) dealerCards = [...dealerCards, deck.shift()];
+    while( handTotal( dealerCards ) < dealerMinimum ) dealerCards = [...dealerCards, deck.shift()];
 
     setHands({
       dealerHand: dealerCards,

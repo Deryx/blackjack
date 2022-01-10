@@ -60,7 +60,7 @@ const dealCards = (): void => {
       dealerCards = [...dealerCards, deck.shift()];
     }
 
-    while( handTotal( dealerCards ) < 17 ) dealerCards = [...dealerCards, deck.shift()];
+    while( handTotal( dealerCards ) < dealerMinimum ) dealerCards = [...dealerCards, deck.shift()];
 
   dealrHand = [...dealerCards];
   playrHands = [...playerHands];  
