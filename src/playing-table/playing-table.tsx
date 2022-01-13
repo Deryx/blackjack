@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PlayerScore from '../player-score/player-score';
 import HitButton from '../buttons/hit-button/hit-button';
 import StayButton from '../buttons/stay-button/stay-button';
+import AceButton from '../buttons/ace-button/ace-button';
 import Hand from '../hand/hand';
 import NewGameButton from '../buttons/new-game-button/new-game-button';
 import handTotal from '../handTotal';
@@ -99,7 +100,7 @@ const Table = ( props: any ): any => {
     }
   }
 
-  const handleStayBtnClick = (event: any): void => {
+  const handleStayBtnClick = ( event: any ): void => {
     const stayBtnId: string = event.target.id;
     const idNumber: number = parseInt( stayBtnId.split('')[stayBtnId.length - 1] );
     const stayButton: any = document.querySelector( '#' + stayBtnId );
@@ -114,6 +115,19 @@ const Table = ( props: any ): any => {
     if ( gameOver() ) processGameOver();
   }
 
+  const handleAceBtnClick = ( event: any ): void => {
+    const aceBtnId: string = event.target.id;
+    const playerId: number = parseInt( aceBtnId.split('')[aceBtnId.length - 1]);
+    const aceButton: any = document.querySelector( '#aceBtn' + playerId );
+    const playerScore: any = document.querySelector( '#player' + playerId + ' div[id=score' + playerId + '] span:nth-child(2)' );
+    console.log(aceBtnId);
+
+    let score: number = parseInt( playerScore.innerText ) + 10;
+    playerScore.innerText = score;
+  
+    aceButton.disabled = true;
+  }
+
   const createPlayerControls = (): any => {
     const controls: any = [];
 
@@ -123,10 +137,11 @@ const Table = ( props: any ): any => {
           <div id={ 'player' + i + 'Buttons' } className="buttons">
             <HitButton player={ i } hitBtnClick={ handleHitBtnClick } />
             <StayButton player={ i } stayBtnClick={ handleStayBtnClick } />
+            <AceButton player={ i } aceBtnClick={ handleAceBtnClick } aceStatus={ !( playerHands[i][0].props.rank === 'A' || playerHands[i][1].props.rank === 'A' ) } />
           </div>
           <div id={ 'player' + i + 'GameStatus' } className="gameStatus"></div>
           <div id={ 'player' + i + 'Cards'} className="cardArea">
-            <PlayerScore player={ i } score={ playerHands[i][0].props.rank === 'A' || playerHands[i][1].props.rank === 'A' ? handTotal( playerHands[i] ) + 10 : handTotal( playerHands[i] ) } />
+            <PlayerScore player={ i } score={ handTotal( playerHands[i] ) } />
             <Hand player={ i } cards={ playerHands[i] } />
           </div>
         </div>
