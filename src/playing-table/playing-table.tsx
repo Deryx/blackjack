@@ -57,9 +57,9 @@ const Table = ( props: any ): any => {
 
   const handleHitBtnClick = ( event: any ): any => {
     const hitButtonId: string = event.target.id;
+    const hitButton: any = document.querySelector( '#' + hitButtonId );
     const playerId: number = parseInt( hitButtonId.split('')[hitButtonId.length - 1] );
     const stayButton: any = document.querySelector( '#stayBtn' + playerId );
-    const hitButton: any = document.querySelector( '#hitBtn' + playerId );
     const dealerScore: any = document.querySelector('#dealerSection .score span:nth-child(2)');
     const dlrScore: number = parseInt( dealerScore.innerText );
     const aceButton: any = document.querySelector( '#aceBtn' + playerId );
@@ -105,8 +105,8 @@ const Table = ( props: any ): any => {
 
   const handleStayBtnClick = ( event: any ): void => {
     const stayBtnId: string = event.target.id;
-    const idNumber: number = parseInt( stayBtnId.split('')[stayBtnId.length - 1] );
     const stayButton: any = document.querySelector( '#' + stayBtnId );
+    const idNumber: number = parseInt( stayBtnId.split('')[stayBtnId.length - 1] );
     const hitBtnId: string = "hitBtn" + idNumber;
     const hitButton: any = document.querySelector( '#' + hitBtnId );
 
@@ -120,10 +120,9 @@ const Table = ( props: any ): any => {
 
   const handleAceBtnClick = ( event: any ): void => {
     const aceBtnId: string = event.target.id;
+    const aceButton: any = document.querySelector( '#' + aceBtnId );
     const playerId: number = parseInt( aceBtnId.split('')[aceBtnId.length - 1]);
-    const aceButton: any = document.querySelector( '#aceBtn' + playerId );
     const playerScore: any = document.querySelector( '#player' + playerId + ' div[id=score' + playerId + '] span:nth-child(2)' );
-    console.log(aceBtnId);
 
     let score: number = parseInt( playerScore.innerText ) + 10;
     playerScore.innerText = score;
