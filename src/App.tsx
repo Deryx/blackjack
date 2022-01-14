@@ -2,6 +2,7 @@ import React from 'react';
 import cardDeck from './card-deck/card-deck';
 import Table from './playing-table/playing-table';
 import handTotal from './handTotal';
+import hasAce from './hasAce';
 import './App.css';
 
 const numPlayers: number = 5;
@@ -60,11 +61,11 @@ const dealCards = (): void => {
       dealerCards = [...dealerCards, deck.shift()];
   }
 
-  let dealerScore: number = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+  let dealerScore: number = hasAce( dealerCards ) ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
   while( dealerScore < dealerMinimum ) {
     dealerCards = [...dealerCards, deck.shift()];
 
-    dealerScore = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+    dealerScore = hasAce( dealerCards ) ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
   }
 
   dealrHand = [...dealerCards];

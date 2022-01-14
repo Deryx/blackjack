@@ -6,6 +6,7 @@ import AceButton from '../buttons/ace-button/ace-button';
 import Hand from '../hand/hand';
 import NewGameButton from '../buttons/new-game-button/new-game-button';
 import handTotal from '../handTotal';
+import hasAce from '../hasAce';
 import './playing-table.scss';
 
 const Table = ( props: any ): any => {
@@ -61,6 +62,7 @@ const Table = ( props: any ): any => {
     const hitButton: any = document.querySelector( '#hitBtn' + playerId );
     const dealerScore: any = document.querySelector('#dealerSection .score span:nth-child(2)');
     const dlrScore: number = parseInt( dealerScore.innerText );
+    const aceButton: any = document.querySelector( '#aceBtn' + playerId );
   
     const card: any = deck.shift();
     let playersCards: any = playerHands;
@@ -85,6 +87,7 @@ const Table = ( props: any ): any => {
       playerHands: playersCards
     });
 
+    aceButton.disabled = true;
   }
 
   const setGameStatus = ( player: number, dealrScore: number ): void => {
@@ -137,7 +140,7 @@ const Table = ( props: any ): any => {
           <div id={ 'player' + i + 'Buttons' } className="buttons">
             <HitButton player={ i } hitBtnClick={ handleHitBtnClick } />
             <StayButton player={ i } stayBtnClick={ handleStayBtnClick } />
-            <AceButton player={ i } aceBtnClick={ handleAceBtnClick } aceStatus={ !( playerHands[i][0].props.rank === 'A' || playerHands[i][1].props.rank === 'A' ) } />
+            <AceButton player={ i } aceBtnClick={ handleAceBtnClick } aceStatus={ !hasAce( playerHands[i] ) } />
           </div>
           <div id={ 'player' + i + 'GameStatus' } className="gameStatus"></div>
           <div id={ 'player' + i + 'Cards'} className="cardArea">
@@ -166,11 +169,11 @@ const Table = ( props: any ): any => {
         dealerCards = [...dealerCards, deck.shift()];
     }
   
-    let dealerScore: number = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+    let dealerScore: number = hasAce( dealerCards ) ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
     while( dealerScore < dealerMinimum ) {
       dealerCards = [...dealerCards, deck.shift()];
 
-      dealerScore = dealerCards[0].props.rank === 'A' || dealerCards[1].props.rank === 'A' ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
+      dealerScore = hasAce( dealerCards ) ? handTotal( dealerCards ) + 10 : handTotal( dealerCards );
     }
 
     setHands({
@@ -222,7 +225,7 @@ const Table = ( props: any ): any => {
       <div id="dealerSection">
         <div className="dealerRow">
           <div className="dealerArea">
-            <PlayerScore player="Dealer" score={ dealerHand[0].props.rank === 'A' || dealerHand[1].props.rank === 'A' ? handTotal( dealerHand ) + 10 : handTotal( dealerHand ) } />
+            <PlayerScore player="Dealer" score={ hasAce( dealerHand ) ? handTotal( dealerHand ) + 10 : handTotal( dealerHand ) } />
             <Hand player="Dealer" cards={ dealerHand } />
           </div>
         </div>
