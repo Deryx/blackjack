@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "8404ef56b0a00dd3c0133db02a535b8d",
+    "revision": "c6272bc1c2583a5164efacd4561b284f",
     "url": "/blackjack/index.html"
   },
   {
-    "revision": "7f36385b2404b533c7ca",
+    "revision": "aa445e0bbd1a63257297",
     "url": "/blackjack/static/css/main.7b0338b8.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/blackjack/static/js/2.da507bd7.chunk.js"
   },
   {
-    "revision": "7f36385b2404b533c7ca",
-    "url": "/blackjack/static/js/main.856ce59f.chunk.js"
+    "revision": "aa445e0bbd1a63257297",
+    "url": "/blackjack/static/js/main.e48a61c6.chunk.js"
   },
   {
     "revision": "212f07e0753165c94538",
