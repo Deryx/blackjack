@@ -107,11 +107,12 @@ const Table = ( props: any ): any => {
     const stayBtnId: string = event.target.id;
     const stayButton: any = document.querySelector( '#' + stayBtnId );
     const idNumber: number = parseInt( stayBtnId.split('')[stayBtnId.length - 1] );
-    const hitBtnId: string = "hitBtn" + idNumber;
-    const hitButton: any = document.querySelector( '#' + hitBtnId );
+    const hitButton: any = document.querySelector( '#hitBtn' + idNumber );
+    const aceButton: any = document.querySelector( '#aceBtn' + idNumber );
 
     hitButton.disabled = true;
     stayButton.disabled = true;
+    aceButton.disabled = true;
 
     incrementStays();
 
